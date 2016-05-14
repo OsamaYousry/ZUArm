@@ -47,12 +47,13 @@ if ~isempty(phi)
     end
 end
 
-%% read 0\1 from user to close\open the gripper */
+%% read gripper angle
 
-gripper = input('enter 0 if you want the gripper to grip after reaching distination, 1 if you want it to release, press enter if you want it to stay as it is\n');
+%gripper move by angle not just open/close
+gripper = input('enter the angle of the gripper, press enter if you want it to stay as it is\n');
 if ~isempty(gripper)
-    while( gripper < 0 || gripper > 1)
-        gripper = input('enter 0 if you want the gripper to grip after reaching distination, 1 if you want it to release\n');
+    while( gripper < 0 || gripper > 180)
+        gripper = input('enter the angle of the gripper, press enter if you want it to stay as it is\n');
     end
 end
 
