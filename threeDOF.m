@@ -64,7 +64,7 @@ if ~isempty(x)
     r = sqrt(x^2 + y^2);
     theta0 = round((atan2(y,x)/pi)*180);
     theta1 = round((atan2(z,r)/pi)*180);
-    outstr = strcat(outstr, {'0 '},num2str(theta0), {':1 '},int2str(theta0),':');
+    outstr = strcat(outstr, {'0 '},num2str(theta0), {':1 '},int2str(theta1),':');
 end
 
 if ~isempty(phi)
