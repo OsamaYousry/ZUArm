@@ -69,7 +69,7 @@ end
 
 if ~isempty(phi)
     theta2 = round(phi);
-    outstr = strcat({'2 '}, num2str(phi), ':');
+    outstr = strcat({'2 '}, num2str(theta2), ':');
 end
 
 if ~isempty(gripper)
