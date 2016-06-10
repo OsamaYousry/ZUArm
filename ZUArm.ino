@@ -1,13 +1,6 @@
 //Servo.h is the library required to directly deal with servo motors
 #include <Servo.h>
 
-/* Pinout is as follows, Arm from base to tool-tip
-theta0 => 9
-theta2 => 11
-theta2 Second Motor is connected to same pin => 11
-theta3 => 3
-theta4 => 5
-*/
 int thetaPin[] = {3,5,6,9,10,11};
 const int numberOfMotors = 6;
 //We define a servo instance for each motor
@@ -34,12 +27,12 @@ void loop() {
    if (servoNo < numberOfMotors) {
      Angle = Serial.readStringUntil(':').toInt();
      thetaServo[servoNo].write(Angle);
-     Serial.print("Theta ");
-   Serial.print(servoNo);
-   Serial.print(" Was sent an angle of ");
-   Serial.println(Angle);
+//     Serial.print("Theta ");
+//   Serial.print(servoNo);
+//   Serial.print(" Was sent an angle of ");
+//   Serial.println(Angle);
    } else {
-    Serial.println("HERE");
+//    Serial.println("HERE");
     for (int i = 0; i < numberOfMotors; i++) {
       int val = thetaServo[i].read();
       Serial.println(val);
