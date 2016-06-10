@@ -94,7 +94,7 @@ pitchmin = max(pitchmin1, pitchmin2);
 %% Inverse kinematics 
 errorFlag = 0;
 
-outstr= '';
+outstr= [];
 
 if y < 0
     theta0 = atan2(-y,-x);
@@ -159,11 +159,27 @@ end
 %radian to degres to be suitable for servo motor
 theta0 = round(theta0 * (180/pi));
 theta1 = round(theta1 * (180/pi));
-theta2 = round(-theta2 * (180/pi));
-theta3 = round(-theta3 * (180/pi));
-    
+theta2 = round(theta2 * (180/pi));
+theta3 = round(theta3 * (180/pi));
+
+if theta0 < 0
+    theta0 = -theta0;
+end
+
+if theta1 < 0
+    theta1 = -theta1;
+end
+
+if theta2 < 0
+    theta2 = -theta2;
+end
+
+if theta3 < 0
+    theta3 = -theta3;
+end
+
 %output string that should be sent to arduino
-outstr = strcat(outstr, {'0 '},num2str(theta0), {':1 '},int2str(theta1), {':2 '},int2str(theta2), {':3 '},int2str(theta3),':');
+outstr = [outstr, '0 ', num2str(theta0), ':1 ',int2str(theta1) ,':2 ',int2str(theta2) ,':3 ' ,int2str(theta3) ,':'];
 
 
 if errorFlag
@@ -172,11 +188,11 @@ end
 
 if ~isempty(phi)
     theta4 = round(phi);
-    outstr = strcat(outstr, {'4 '}, num2str(theta4), ':');
+    outstr = [outstr, '4 ', num2str(theta4), ':'];
 end
 
 if ~isempty(gripper)
-    outstr = strcat(outstr, {'5 '}, num2str(gripper), ':');
+    outstr = [outstr, '5 ', num2str(gripper), ':'];
 end
 
 %% Connecting to Arduino via serial communication
@@ -186,9 +202,11 @@ outstr
 delete(instrfind)
 global S
 if (~errorFlag || 1)
-    S = serial('COM28','BaudRate',9600,'timeOut',0.1);
+    S = serial('COM28','BaudRate',9600,'timeOut',0.05);
     fopen(S);
-    fprintf(S,outstr);
+    pause(2);
+    fprintf(S, outstr);
+    pause(1);
     fclose(S);
 end
 
